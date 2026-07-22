@@ -2835,9 +2835,9 @@
   .branch-meter { z-index: 20; background: rgba(250,247,239,.88); backdrop-filter: blur(5px); }
   .life-tree-bg { position:absolute; left:3%; right:3%; top:112px; width:94%; height:calc(100% - 166px); object-fit:contain; z-index:3; pointer-events:none; filter: drop-shadow(0 16px 22px rgba(42,39,36,.08)); }
   .life-tree-board::after { display:none !important; }
-  #treeMarks { z-index: 10; }
+  #treeMarks { z-index: 12; }
   .life-tree-bg { content: url("assets/life-tree-branches-v1.png?v=26"); }
-  .tree-mark { background: transparent !important; border: 0 !important; box-shadow: none !important; overflow: visible; }
+  .tree-mark { position:absolute; display:block; background: transparent !important; border: 0 !important; box-shadow: none !important; overflow: visible; transform: translate(-50%, -50%) rotate(var(--rot, 0deg)); transform-origin:center; }
   .tree-mark::before { display: none !important; }
   .tree-mark.leaf { width: 34px; height: 24px; background: url("assets/growth-leaf-v1.png") center / contain no-repeat !important; }
   .tree-mark.flower { width: 28px; height: 28px; background: url("assets/growth-flower-v1.png") center / contain no-repeat !important; }
@@ -5739,6 +5739,26 @@ function buildGrowthBranchItems(metrics) {
     if (growthItemText(d.gratitude)) addGrowthBranchItem(metrics, 'relation', 'flower', `${dateStr} 阶段性收获：关系滋养 - ${growthItemText(d.gratitude)}`);
     if (growthItemText(d.review)) addGrowthBranchItem(metrics, 'spirit', 'flower', `${dateStr} 阶段性收获：复盘洞察 - ${growthItemText(d.review)}`);
   });
+
+  Object.entries(metrics.dimensions).forEach(([dim, score]) => {
+    const existing = metrics.branchItems[dim] || [];
+    const maxVisible = 20;
+    const divisor = metrics.range === 'day' ? 2 : (metrics.range === 'week' ? 6 : (metrics.range === 'month' ? 12 : 24));
+    const target = Math.min(maxVisible, Math.max(existing.length, Math.ceil((Number(score) || 0) / divisor)));
+    for (let i = existing.length; i < target; i += 1) {
+      const dimEvidence = metrics.evidence?.[dim] || [];
+      const evidence = dimEvidence.length ? dimEvidence[i % dimEvidence.length] : `${growthRangeLabel(metrics.range)}累计 ${Math.round(score)} 分`;
+      addGrowthBranchItem(metrics, dim, 'leaf', `${growthDimensionLabel[dim]} · 累计生长：${evidence}`);
+    }
+  });
+
+  const strongestDim = Object.entries(metrics.dimensions).sort((a,b) => b[1] - a[1])[0]?.[0] || 'mind';
+  if (metrics.flowers > 0 && !Object.values(metrics.branchItems).some(items => items.some(item => item.kind === 'flower'))) {
+    addGrowthBranchItem(metrics, strongestDim, 'flower', `${growthRangeLabel(metrics.range)}阶段性收获：已有 ${metrics.flowers} 朵思想开花`);
+  }
+  if (metrics.fruits > 0 && !Object.values(metrics.branchItems).some(items => items.some(item => item.kind === 'fruit'))) {
+    addGrowthBranchItem(metrics, strongestDim, 'fruit', `${growthRangeLabel(metrics.range)}完整目标达成：已有 ${metrics.fruits} 个阶段果实`);
+  }
 }
 
 function growthRangeLabel(range = growthRange) {
