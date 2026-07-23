@@ -1,5 +1,5 @@
 // 五色 App - Service Worker for offline support
-const CACHE_NAME = 'wuse-v26-tree-sprite-assets';
+const CACHE_NAME = 'wuse-v27-tree-overlay-fix';
 const ASSETS = [
   './',
   './index.html',

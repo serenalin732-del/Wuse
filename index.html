@@ -2836,12 +2836,12 @@
   .life-tree-bg { position:absolute; left:3%; right:3%; top:112px; width:94%; height:calc(100% - 166px); object-fit:contain; z-index:3; pointer-events:none; filter: drop-shadow(0 16px 22px rgba(42,39,36,.08)); }
   .life-tree-board::after { display:none !important; }
   #treeMarks { z-index: 12; }
-  .life-tree-bg { content: url("assets/life-tree-branches-v1.png?v=26"); }
-  .tree-mark { position:absolute; display:block; background: transparent !important; border: 0 !important; box-shadow: none !important; overflow: visible; transform: translate(-50%, -50%) rotate(var(--rot, 0deg)); transform-origin:center; }
+  .life-tree-bg { content: url("assets/life-tree-branches-v1.png?v=27"); }
+  .tree-mark { position:absolute; display:block; background: transparent !important; border: 0 !important; box-shadow: none !important; overflow: visible; transform: translate(-50%, -50%) rotate(var(--rot, 0deg)); transform-origin:center; filter: drop-shadow(0 5px 9px rgba(42,39,36,.18)) !important; opacity:1 !important; }
   .tree-mark::before { display: none !important; }
-  .tree-mark.leaf { width: 34px; height: 24px; background: url("assets/growth-leaf-v1.png") center / contain no-repeat !important; }
-  .tree-mark.flower { width: 28px; height: 28px; background: url("assets/growth-flower-v1.png") center / contain no-repeat !important; }
-  .tree-mark.fruit { width: 32px; height: 32px; background: url("assets/growth-fruit-v1.png") center / contain no-repeat !important; }
+  .tree-mark.leaf { width: 34px; height: 24px; background: url("assets/growth-leaf-v1.png?v=27") center / contain no-repeat !important; }
+  .tree-mark.flower { width: 28px; height: 28px; background: url("assets/growth-flower-v1.png?v=27") center / contain no-repeat !important; }
+  .tree-mark.fruit { width: 32px; height: 32px; background: url("assets/growth-fruit-v1.png?v=27") center / contain no-repeat !important; }
   .tree-mark.fruit::before { display: none !important; }
   .branch-hotspots { position:absolute; left:3%; right:3%; top:112px; bottom:54px; z-index:11; pointer-events:none; }
   .branch-hotspot { position:absolute; border:0; background:transparent; padding:0; cursor:help; pointer-events:auto; transform-origin:left center; }
@@ -3000,7 +3000,7 @@
             <button class="compare-badge" data-growth-range="year">今年</button>
           </div>
           <p class="growth-period-note" id="growthPeriodNote">正在读取今日记录</p>
-          <img class="life-tree-bg" src="assets/life-tree-branches-v1.png?v=26" alt="生命成长树底图">
+          <img class="life-tree-bg" src="assets/life-tree-branches-v1.png?v=27" alt="生命成长树底图">
           <svg class="hand-tree-svg" viewBox="0 0 900 560" aria-hidden="true">
             <defs>
               <filter id="pencilNoise" x="-8%" y="-8%" width="116%" height="116%">
